@@ -10,12 +10,13 @@ public class PlayerMove : MonoBehaviour
     const float kDashSpeed = 3.5f;
     const float rotationSpeed = 720.0f;
 
+    Rigidbody rb;
     Vector3 velocity = Vector3.zero;
-    public int animationType = 0;  // 0:idle 1:jog 2:dash
+    public int animationType = 0;  // 0:idle 1:jog 2:dash 3:jump 4:fall 5:land
 
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -23,12 +24,14 @@ public class PlayerMove : MonoBehaviour
         Vector3 inputDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         if (Input.GetKey(KeyCode.JoystickButton5))
         {
-            velocity = inputDir * kDashSpeed;
+            //velocity = inputDir * kDashSpeed;
+            rb.MovePosition(rb.position + inputDir * kDashSpeed * Time.deltaTime);
             animationType = 2;  // dash
         }
         else
         {
-            velocity = inputDir * kMoveSpeed;
+            //velocity = inputDir * kMoveSpeed;
+            rb.MovePosition(rb.position + inputDir * kMoveSpeed * Time.deltaTime);
             animationType = 1;  // jog
         }
 
@@ -49,7 +52,12 @@ public class PlayerMove : MonoBehaviour
             animationType = 0;  // idle
         }
 
-            Debug.Log($"animationType:{animationType}");
+        if (Input.GetKey(KeyCode.JoystickButton0))
+        {
+
+        }
+
+        Debug.Log($"animationType:{animationType}");
 
         Vector3 pos = transform.position;
         pos += velocity * Time.deltaTime;
