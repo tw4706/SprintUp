@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,11 @@ public class PlayerMove : MonoBehaviour
 {
     // 定数
     const float kMoveSpeed = 2.0f;      // 移動速度
-    const float kMaxMoveSpeed = 2.0f;   // 最高移動速度
-    const float kFrictionForce = 2.0f;  // 自然に止まる力
+    const float kDashSpeed = 3.5f;
+    const float rotationSpeed = 720.0f;
 
-    Vector3 speed = Vector3.zero;
-    public bool isMoveAnim = false;
+    Vector3 velocity = Vector3.zero;
+    public int animationType = 0;  // 0:idle 1:jog 2:dash
 
     void Start()
     {
@@ -19,75 +20,45 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        //speed = Vector3.zero;
-        // 入力を取得して速度に変換
-        InputSpeed();
-        Debug.Log($"input:{speed}");
+        Vector3 inputDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (Input.GetKey(KeyCode.JoystickButton5))
+        {
+            velocity = inputDir * kDashSpeed;
+            animationType = 2;  // dash
+        }
+        else
+        {
+            velocity = inputDir * kMoveSpeed;
+            animationType = 1;  // jog
+        }
 
-        // 最高速度に補正&自然に止まる力
-        //CorrectSpeed();
+        if (velocity.sqrMagnitude > 0)
+        {
+            // 入力方向に向かう回転を計算
+            Quaternion targetRotation = Quaternion.LookRotation(inputDir);
 
-        // 位置に速度を足す
+            // スムーズに回転
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime);
+
+        }
+        else
+        {
+            animationType = 0;  // idle
+        }
+
+            Debug.Log($"animationType:{animationType}");
+
         Vector3 pos = transform.position;
-        pos += speed;
+        pos += velocity * Time.deltaTime;
         transform.position = pos;
-    }
-
-    void InputSpeed()
-    {
-        Vector3 moveVec = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));
-        speed += moveVec * kMoveSpeed * Time.deltaTime;
     }
 
     void CorrectSpeed()
     {
-        // 速度がある程度を下回ったら止める
-        if (speed.x < 0.1f && speed.x > -0.1f)
-        {
-            speed.x = 0f;
-        }
-        if (speed.z < 0.1f && speed.z > -0.1f)
-        {
-            speed.z = 0f;
-        }
 
-        // 自然に止まる力
-        if (speed.x > 0.1f)
-        {
-            speed.x -= kFrictionForce;
-        }
-        else if (speed.x < -0.1f)
-        {
-            speed.x += kFrictionForce;
-        }
-
-        if (speed.z > 0.1f)
-        {
-            speed.z -= kFrictionForce;
-        }
-        else if (speed.z < -0.1f)
-        {
-            speed.z += kFrictionForce;
-        }
-
-        // 最高速度を超えたら補正
-        if (speed.x > kMaxMoveSpeed)
-        {
-            speed.x = kMaxMoveSpeed;
-        }
-        if (speed.x < -kMaxMoveSpeed)
-        {
-            speed.x = -kMaxMoveSpeed;
-        }
-
-        if (speed.z > kMaxMoveSpeed)
-        {
-            speed.z = kMaxMoveSpeed;
-        }
-        if (speed.z < -kMaxMoveSpeed)
-        {
-            speed.z = -kMaxMoveSpeed;
-        }
     }
 
 }

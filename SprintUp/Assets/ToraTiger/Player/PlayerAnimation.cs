@@ -15,13 +15,19 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update()
     {
-        if (playerMove.isMoveAnim)
+        if (playerMove.animationType == 0)
         {
-            animator.SetBool("IsJogging", true);
+            animator.SetBool("isJog", false);
+            animator.SetBool("isDash", false);
         }
-        else
+        else if (playerMove.animationType == 1)
         {
-            animator.SetBool("IsJogging", false);
+            animator.SetBool("isJog", true);
+            animator.SetBool("isDash", false);
+        }
+        else if (playerMove.animationType == 2)
+        {
+            animator.SetBool("isDash", true);
         }
     }
 }
