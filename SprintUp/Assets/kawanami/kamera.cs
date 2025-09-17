@@ -32,7 +32,6 @@ public class kamera : MonoBehaviour
         float rightStickY = UnityEngine.Input.GetAxis("RightStickVertical");
         Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
         //スティックの入力に応じて角度を変更
-        
         yaw += rightStickX * sensitivity * Time.deltaTime;
         pitch+= rightStickY * sensitivity * Time.deltaTime;
         pitch = Mathf.Clamp(pitch,verticalAnglemin, verticalAnglemax);
