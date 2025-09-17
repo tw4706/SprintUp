@@ -29,5 +29,10 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetBool("isDash", true);
         }
+        else if (playerMove.animationType == 3)
+        {
+            animator.SetTrigger("Jump");
+            playerMove.animationType = 0;  // ジャンプアニメーションが終わったらidleに戻す
+        }
     }
 }
