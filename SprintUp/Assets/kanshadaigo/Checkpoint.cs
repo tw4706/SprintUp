@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private void 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            //チェックポイントの位置を保存
+            CheckpointManager.Instance.SetCheckpoint(transform.position);
+            Debug.Log("チェックポイントに到達:" +  transform.position);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
