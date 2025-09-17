@@ -14,9 +14,9 @@ public class PlayerRespawm : MonoBehaviour
 
     public void Respawn()
     {
-        Vector3 CheckpointPos = CheckpointManager.Instance.GetCheckpointposition();
-        transform.position = CheckpointPos;
-        Debug.Log("チェックポイントに到達した:" +  CheckpointPos);
+        //Vector3 CheckpointPos = CheckpointManager.Instance.GetCheckpointPosition();
+        //transform.position = CheckpointPos;
+        //Debug.Log("チェックポイントに到達した:" +  CheckpointPos);
     }
     // Start is called before the first frame update
     void Start()

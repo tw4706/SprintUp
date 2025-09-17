@@ -9,7 +9,7 @@ public class Checkpoint : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             //チェックポイントの位置を保存
-            CheckpointManager.Instance.SetCheckpoint(transform.position);
+            //CheckpointManager.Instance.SetCheckpoint(transform.position);
             Debug.Log("チェックポイントに到達:" +  transform.position);
         }
     }
