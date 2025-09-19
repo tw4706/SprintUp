@@ -12,7 +12,7 @@ public class GameStart : MonoBehaviour
     // シーン遷移先
     public string scene;
     // スタートしているかどうか
-    bool isStart = false;
+    //bool isStart = false;
     
     // Start is called before the first frame update
     void Start()
