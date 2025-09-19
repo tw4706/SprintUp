@@ -15,6 +15,8 @@ public class PlayerMove : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     public int animationType = 0;  // 0:idle 1:jog 2:dash
 
+    public Transform camera;
+
     // ジャンプ関連
     public float checkDistance = 0.1f;
     public LayerMask groundLayer;
@@ -29,16 +31,30 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         // 入力方向を取得
-        Vector3 inputDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        
+        //Vector3 inputDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        // カメラの向きに基づいた移動方向を計算
+        Vector3 cameraForward = camera.forward;
+        Vector3 cameraRight = camera.right;
+
+        // Y軸方向の影響を除去
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        Vector3 moveDir = cameraForward * vertical + cameraRight * horizontal;
+
         if (Input.GetKey(KeyCode.JoystickButton5))  // R2ボタンが押されていたらダッシュ
         { 
-            velocity = inputDir * kDashSpeed;
+            velocity = moveDir * kDashSpeed;
             animationType = 2;  // アニメーションをダッシュに変更
         }
         else
         {
-            velocity = inputDir * kMoveSpeed; 
+            velocity = moveDir * kMoveSpeed; 
             animationType = 1;  // アニメーションをジョグに変更
         }
 
@@ -46,7 +62,7 @@ public class PlayerMove : MonoBehaviour
         if (velocity.sqrMagnitude > 0)
         {
             // 入力方向に向かう回転を計算
-            Quaternion targetRotation = Quaternion.LookRotation(inputDir);
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
 
             // スムーズに回転
             transform.rotation = Quaternion.RotateTowards(
