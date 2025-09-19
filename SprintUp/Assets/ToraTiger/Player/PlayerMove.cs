@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     public Transform camera;
 
     // ジャンプ関連
-    public float checkDistance = 0.1f;
+    public float checkDistance = 0.15f;
     public LayerMask groundLayer;
     public Transform bottom;
 
@@ -90,6 +90,7 @@ public class PlayerMove : MonoBehaviour
         // Aボタンが押されたら
         if (Input.GetKeyDown(KeyCode.JoystickButton0) && isGrounded)
         {
+            Debug.Log("ジャンプしてるんじゃぁ");
             isGrounded = false;  // ジャンプしたので地面から離れる
             rb.AddForce(Vector3.up * 5.0f, ForceMode.VelocityChange);  // ジャンプ
             //animationType = 3;  // アニメーションをジャンプに変更
