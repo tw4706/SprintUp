@@ -15,7 +15,7 @@ public class kamera_2 : MonoBehaviour
     private float yaw = 0.0f;//水平角度(Y軸)
     private float pitch = 20.0f;//垂直角度(X軸)
 
-
+    public float headHeightOffset = 2.0f;//プレイヤーの頭の高さ
 
 
     // Start is called before the first frame update
@@ -30,6 +30,11 @@ public class kamera_2 : MonoBehaviour
         //右スティックの入力取得
         float rightStickX = UnityEngine.Input.GetAxis("RightStickHorizontal_2");
         float rightStickY = UnityEngine.Input.GetAxis("RightStickVertical_2");
+
+        //デッドゾーン
+        if (Mathf.Abs(rightStickX) < 0.1f) rightStickX = 0f;
+        if (Mathf.Abs(rightStickY) < 0.1f) rightStickY = 0f;
+
         Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); 
         //スティックの入力に応じて角度を変更
         yaw += rightStickX * sensitivity * Time.deltaTime;
