@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player : MonoBehaviour
+public class player1 : MonoBehaviour
 {
     float inputHorizotal;
     float inputVertical;
@@ -11,18 +11,7 @@ public class player : MonoBehaviour
 
     float moveSpeed =3.0f;
 
-    //プレイヤーの方向転換スピードの調整値
-    //[SerializeField, Range(0.0f, 1.0f)]
-    //private float turnRate = 0.3f;
-
-    //移動速度
-    //private Vector3 velocity;
-
-    //キャラクターコントローラー
-    //private CharacterController controller;
-
-
-    // Start is called before the first frame update
+    public Camera Camera1;
     void Start()
     {
         //キャラクターコントローラー取得
@@ -85,10 +74,10 @@ public class player : MonoBehaviour
     private void FixedUpdate()
     {
         //カメラの方向からx-z平面の単位ベクトルを取得
-        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 cameraForward = Vector3.Scale(Camera1.transform.forward, new Vector3(1, 0, 1)).normalized;
 
         //方向キーの入力値とカメラの向きから移動方向を決定
-        Vector3 moveForward = cameraForward * inputVertical + Camera.main.transform.right * inputHorizotal;
+        Vector3 moveForward = cameraForward * inputVertical + Camera1.transform.right * inputHorizotal;
 
         //移動方向にスピードをかける。ジャンプや落下がある場合は別途Y軸方向の速度ベクトルを足す
         rb.velocity = moveForward*moveSpeed+new Vector3(0, rb.velocity.y, 0);
