@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Windows;
 
 
-public class kamera : MonoBehaviour
+public class kamera_1: MonoBehaviour
 {
-    public Transform player;//プレイヤーのtransform
+    public Transform player1;//プレイヤーのtransform
     public float distance = 10.0f;//カメラ距離
     public float sensitivity = 100.0f;//感度
     public float verticalAnglemin = -89.0f;//垂直角度の最小値
@@ -28,8 +28,8 @@ public class kamera : MonoBehaviour
     void Update()
     {
         //右スティックの入力取得
-        float rightStickX = UnityEngine.Input.GetAxis("RightStickHorizontal");
-        float rightStickY = UnityEngine.Input.GetAxis("RightStickVertical");
+        float rightStickX = UnityEngine.Input.GetAxis("RightStickHorizontal_1");
+        float rightStickY = UnityEngine.Input.GetAxis("RightStickVertical_1");
         Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
         //スティックの入力に応じて角度を変更
         yaw += rightStickX * sensitivity * Time.deltaTime;
@@ -42,7 +42,7 @@ public class kamera : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
         Vector3 offset = rotation * new Vector3(0, 0, -distance);
         //カメラを配置し、プレイヤーを見る
-        transform.position = player.position+offset;
-        transform.LookAt(player);
+        transform.position = player1.position+offset;
+        transform.LookAt(player1);
     }
 }
