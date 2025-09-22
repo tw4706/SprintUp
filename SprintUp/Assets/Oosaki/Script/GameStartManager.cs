@@ -32,7 +32,14 @@ public class GameStart : MonoBehaviour
     }
     public void OnButtonClick()
     {
-        Debug.Log("ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½");
-        SceneManager.LoadScene(scene);
+        var fade = FindObjectOfType<FadeManager>();
+        if (fade != null)
+        {
+            fade.FadeToScene(scene);
+        }
+        else
+        {
+            Debug.Log("FadeManager‚ªŒ©‚Â‚©‚ç‚È‚¢I");
+        }
     }
 }
