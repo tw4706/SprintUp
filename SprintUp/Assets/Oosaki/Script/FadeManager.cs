@@ -11,6 +11,8 @@ public class FadeManager : MonoBehaviour
     public Image fadeImage; // フェード用の変数
     public float fadeDuration = 1.0f; // フェードの間隔
     public GameObject obj;
+    private static FadeManager instance;
+    public string scene;
 
     void Start()
     {
@@ -24,17 +26,27 @@ public class FadeManager : MonoBehaviour
     // 処理を行うための仕組み
 
     // フェードインのコルーチン
-    private void Awake()
+    void Awake()
     {
         // シーンが変わっても消えないようにする
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        if (fadeImage!=null)
+        if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
             fadeImage.color = new Color(0, 0, 0, 0);
             StartCoroutine(FadeIn());
         }
+
     }
     // フェードイン
     public void FadeToScene(string sceneName)
@@ -72,5 +84,17 @@ public class FadeManager : MonoBehaviour
         }
         fadeImage.color = new Color(0, 0, 0, 1);
         SceneManager.LoadScene(sceneName);
+    }
+    public void OnClick()
+    {
+       FadeManager fade = FindObjectOfType<FadeManager>();
+         if (fade != null)
+         {
+              fade.FadeToScene("MenuScene");
+         }
+         else
+         {
+              Debug.Log("FadeManagerが見つからない！");
+         }
     }
 }
