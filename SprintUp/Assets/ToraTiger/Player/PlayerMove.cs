@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    // ’è”
-    const float kMoveSpeed = 2.0f;      // ˆÚ“®‘¬“x
+    // å®šæ•°
+    const float kMoveSpeed = 2.0f;      // ç§»å‹•é€Ÿåº¦
     const float kDashSpeed = 3.5f;
     const float rotationSpeed = 720.0f;
 
@@ -15,9 +15,9 @@ public class PlayerMove : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     public int animationType = 0;  // 0:idle 1:jog 2:dash
 
-    public Transform camera;
+    public Transform cameraPos;
 
-    // ƒWƒƒƒ“ƒvŠÖ˜A
+    // ã‚¸ãƒ£ãƒ³ãƒ—é–¢é€£
     public float checkDistance = 0.15f;
     public LayerMask groundLayer;
     public Transform bottom;
@@ -30,16 +30,16 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        // “ü—Í•ûŒü‚ğæ“¾
+        // å…¥åŠ›æ–¹å‘ã‚’å–å¾—
         //Vector3 inputDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        // ƒJƒƒ‰‚ÌŒü‚«‚ÉŠî‚Ã‚¢‚½ˆÚ“®•ûŒü‚ğŒvZ
-        Vector3 cameraForward = camera.forward;
-        Vector3 cameraRight = camera.right;
+        // ã‚«ãƒ¡ãƒ©ã®å‘ãã«åŸºã¥ã„ãŸç§»å‹•æ–¹å‘ã‚’è¨ˆç®—
+        Vector3 cameraForward = cameraPos.forward;
+        Vector3 cameraRight = cameraPos.right;
 
-        // Y²•ûŒü‚Ì‰e‹¿‚ğœ‹
+        // Yè»¸æ–¹å‘ã®å½±éŸ¿ã‚’é™¤å»
         cameraForward.y = 0f;
         cameraRight.y = 0f;
         cameraForward.Normalize();
@@ -47,31 +47,31 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = cameraForward * vertical + cameraRight * horizontal;
 
-        if (Input.GetKey(KeyCode.JoystickButton5))  // R2ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚çƒ_ƒbƒVƒ…
+        if (Input.GetKey(KeyCode.JoystickButton5))  // R2ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰ãƒ€ãƒƒã‚·ãƒ¥
         { 
             velocity = moveDir * kDashSpeed;
-            animationType = 2;  // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒ_ƒbƒVƒ…‚É•ÏX
+            animationType = 2;  // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒ€ãƒƒã‚·ãƒ¥ã«å¤‰æ›´
         }
         else
         {
             velocity = moveDir * kMoveSpeed; 
-            animationType = 1;  // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒWƒ‡ƒO‚É•ÏX
+            animationType = 1;  // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚¸ãƒ§ã‚°ã«å¤‰æ›´
         }
 
-        // “ü—Í‚ª‚ ‚ê‚ÎˆÚ“®•ûŒü‚ÉŒü‚­
+        // å…¥åŠ›ãŒã‚ã‚Œã°ç§»å‹•æ–¹å‘ã«å‘ã
         if (velocity.sqrMagnitude > 0)
         {
-            // “ü—Í•ûŒü‚ÉŒü‚©‚¤‰ñ“]‚ğŒvZ
+            // å…¥åŠ›æ–¹å‘ã«å‘ã‹ã†å›è»¢ã‚’è¨ˆç®—
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
 
-            // ƒXƒ€[ƒY‚É‰ñ“]
+            // ã‚¹ãƒ ãƒ¼ã‚ºã«å›è»¢
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 targetRotation,
                 rotationSpeed * Time.deltaTime);
 
         }
-        else    // “ü—Í‚ª‚È‚¯‚ê‚ÎƒAƒCƒhƒ‹ƒAƒjƒ[ƒVƒ‡ƒ“‚É•ÏX
+        else    // å…¥åŠ›ãŒãªã‘ã‚Œã°ã‚¢ã‚¤ãƒ‰ãƒ«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«å¤‰æ›´
         {
             animationType = 0;  // idle
         }
@@ -80,25 +80,25 @@ public class PlayerMove : MonoBehaviour
 
         if (isGrounded)
         {
-            Debug.Log("Ú’n‚µ‚Ä‚¢‚Ü‚·");
+            Debug.Log("æ¥åœ°ã—ã¦ã„ã¾ã™");
         }
         else
         {
-            Debug.Log("‹ó’†‚Å‚·");
+            Debug.Log("ç©ºä¸­ã§ã™");
         }
 
-        // Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç
+        // Aãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰
         if (Input.GetKeyDown(KeyCode.JoystickButton0) && isGrounded)
         {
-            Debug.Log("ƒWƒƒƒ“ƒv‚µ‚Ä‚é‚ñ‚¶‚á‚Ÿ");
-            isGrounded = false;  // ƒWƒƒƒ“ƒv‚µ‚½‚Ì‚Å’n–Ê‚©‚ç—£‚ê‚é
-            rb.AddForce(Vector3.up * 5.0f, ForceMode.VelocityChange);  // ƒWƒƒƒ“ƒv
-            //animationType = 3;  // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒWƒƒƒ“ƒv‚É•ÏX
+            Debug.Log("ã‚¸ãƒ£ãƒ³ãƒ—ã—ã¦ã‚‹ã‚“ã˜ã‚ƒã");
+            isGrounded = false;  // ã‚¸ãƒ£ãƒ³ãƒ—ã—ãŸã®ã§åœ°é¢ã‹ã‚‰é›¢ã‚Œã‚‹
+            rb.AddForce(Vector3.up * 5.0f, ForceMode.VelocityChange);  // ã‚¸ãƒ£ãƒ³ãƒ—
+            //animationType = 3;  // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚¸ãƒ£ãƒ³ãƒ—ã«å¤‰æ›´
         }
 
         Debug.Log($"velocity:{velocity}");
 
-        // ˆÚ“®
+        // ç§»å‹•
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
     }
 
