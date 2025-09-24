@@ -6,7 +6,7 @@ using UnityEngine.Windows;
 
 public class kamera_1: MonoBehaviour
 {
-    public Transform player1;//プレイヤーのtransform
+    public Transform player;//プレイヤーのtransform
     public float distance = 10.0f;//カメラ距離
     public float sensitivity = 100.0f;//感度
     public float verticalAnglemin = -89.0f;//垂直角度の最小値
@@ -47,8 +47,8 @@ public class kamera_1: MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
         Vector3 offset = rotation * new Vector3(0, 0, -distance);
         //カメラを配置し、プレイヤーを見る
-        Vector3 targetPosition = player1.position + new Vector3(0, headHeightOffset, 0);
+        Vector3 targetPosition = player.position + new Vector3(0, headHeightOffset, 0);
         transform.position = targetPosition + offset; 
-        transform.LookAt(player1);
+        transform.LookAt(player);
     }
 }
