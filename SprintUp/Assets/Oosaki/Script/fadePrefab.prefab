@@ -47,8 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 0}
   fadeDuration: 1
-  obj: {fileID: 0}
-  scene: 
+  obj: {fileID: 2024942047886661134}
+  scene: GameScene
 --- !u!1 &4235925838433263383
 GameObject:
   m_ObjectHideFlags: 0
