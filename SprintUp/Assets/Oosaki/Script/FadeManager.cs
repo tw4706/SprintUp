@@ -12,14 +12,21 @@ public class FadeManager : MonoBehaviour
     public float fadeDuration = 1.0f; // フェードの間隔
     public GameObject obj;
     private static FadeManager instance;
-    public string scene;
+
+    public static FadeManager Instance=> instance;
 
     void Start()
     {
-        if(FindObjectOfType<FadeManager>()==null)
+    }
+
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Instantiate(obj);
+            FadeToScene("GameScene"); // 任意のシーン名
         }
+
     }
 
     // コルーチンとはUpdateを使わずに自然な流れで
@@ -33,6 +40,7 @@ public class FadeManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -43,7 +51,7 @@ public class FadeManager : MonoBehaviour
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
-            fadeImage.color = new Color(0, 0, 0, 0);
+            fadeImage.color = new Color(0, 0, 0, 1);
             StartCoroutine(FadeIn());
         }
 
@@ -83,18 +91,20 @@ public class FadeManager : MonoBehaviour
             yield return null;
         }
         fadeImage.color = new Color(0, 0, 0, 1);
+
+
+        // ここで1フレーム待つことで、最後の黒画面が描画される
+        yield return null;
+
         SceneManager.LoadScene(sceneName);
     }
-    public void OnClick()
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-       FadeManager fade = FindObjectOfType<FadeManager>();
-         if (fade != null)
-         {
-              fade.FadeToScene("MenuScene");
-         }
-         else
-         {
-              Debug.Log("FadeManagerが見つからない！");
-         }
+        if (fadeImage != null)
+        {
+            StartCoroutine(FadeIn());
+        }
     }
+
 }
