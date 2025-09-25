@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class SceneChanger : MonoBehaviour
 {
-    public string sceneName;
 
-    public void OnClick()
+    public void OnClick(string sceneName)
     {
-        FadeManager fade=GetComponent<FadeManager>();
-        if(fade!=null)
+        if (FadeManager.Instance != null)
         {
-            fade.FadeToScene("GameScene"
-                );
+            FadeManager.Instance.FadeToScene(sceneName);
         }
         else
         {
-            Debug.Log("Œ©‚Â‚©‚è‚Ü‚¹‚ñI");
+            Debug.Log("FadeManager‚ªŒ©‚Â‚©‚ç‚È‚¢I");
         }
     }
 }
