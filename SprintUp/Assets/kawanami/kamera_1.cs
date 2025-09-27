@@ -8,7 +8,7 @@ public class kamera_1: MonoBehaviour
 {
     public Transform player;//プレイヤーのtransform
     public float distance = 10.0f;//カメラ距離
-    public float sensitivity = 100.0f;//感度
+    public float sensitivity = 50.0f;//感度
     public float verticalAnglemin = -89.0f;//垂直角度の最小値
     public float verticalAnglemax = 89.0f;//垂直角度の最大値
 
@@ -25,15 +25,15 @@ public class kamera_1: MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //右スティックの入力取得
         float rightStickX = UnityEngine.Input.GetAxis("RightStickHorizontal_1");
         float rightStickY = UnityEngine.Input.GetAxis("RightStickVertical_1");
-
+        Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
         //デッドゾーン
-        if (Mathf.Abs(rightStickX) < 0.1f) rightStickX = 0f;
-        if (Mathf.Abs(rightStickY) < 0.1f) rightStickY = 0f;
+        if (Mathf.Abs(rightStickX) < 0.35f) rightStickX = 0f;
+        if (Mathf.Abs(rightStickY) < 0.35f) rightStickY = 0f;
 
         Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
         //スティックの入力に応じて角度を変更
