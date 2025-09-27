@@ -24,7 +24,7 @@ public class FadeManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            FadeToScene("GameScene"); // 任意のシーン名
+            FadeToScene("ResultScene"); // 任意のシーン名
         }
 
     }
