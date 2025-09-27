@@ -302,12 +302,12 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: joystick button 1
     gravity: 0
-    dead: 0.2
+    dead: 0.35
     sensitivity: 1
     snap: 0
     invert: 0
     type: 2
-    axis: 3
+    axis: 2
     joyNum: 1
   - serializedVersion: 3
     m_Name: RightStickVertical_1
@@ -318,12 +318,12 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: joystick button 1
     gravity: 0
-    dead: 0.2
+    dead: 0.35
     sensitivity: 1
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 5
     joyNum: 1
   - serializedVersion: 3
     m_Name: RightStickHorizontal_2
@@ -334,7 +334,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: joystick 2 button 1
     gravity: 0
-    dead: 0.2
+    dead: 0.35
     sensitivity: 1
     snap: 0
     invert: 0
@@ -350,7 +350,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: joystick 2 button 1
     gravity: 0
-    dead: 0.2
+    dead: 0.35
     sensitivity: 1
     snap: 0
     invert: 0
