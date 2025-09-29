@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody rb;
     Vector3 velocity = Vector3.zero;
-    public int animationType = 0;  // 0:idle 1:jog 2:dash
+    public int animationType = 0;  // 0:idle 1:jog 2:dash 3:jump
 
     public Transform cameraPos;
 
@@ -21,11 +21,15 @@ public class PlayerMove : MonoBehaviour
     public float checkDistance = 0.15f;
     public LayerMask groundLayer;
     public Transform bottom;
+    public bool isFalling = false;
+
+    Animator animator;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -76,9 +80,10 @@ public class PlayerMove : MonoBehaviour
             animationType = 0;  // idle
         }
 
-        bool isGrounded = Physics.Raycast(bottom.position, Vector3.down, checkDistance, groundLayer);
 
-        if (isGrounded)
+       bool isGround = Physics.Raycast(bottom.position, Vector3.down, checkDistance, groundLayer);
+
+        if (isGround)
         {
             Debug.Log("接地しています");
         }
@@ -88,15 +93,24 @@ public class PlayerMove : MonoBehaviour
         }
 
         // Aボタンが押されたら
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) && isGround)
         {
             Debug.Log("ジャンプしてるんじゃぁ");
-            isGrounded = false;  // ジャンプしたので地面から離れる
+            isGround = false;  // ジャンプしたので地面から離れる
             rb.AddForce(Vector3.up * 5.0f, ForceMode.VelocityChange);  // ジャンプ
-            //animationType = 3;  // アニメーションをジャンプに変更
         }
 
-        Debug.Log($"velocity:{velocity}");
+        float yVelocity = rb.velocity.y;  // 現在のY方向の速度を保存
+        if ((yVelocity < 0.05f) && (yVelocity > -0.05f))
+        {
+            isFalling = false;
+        }
+        else
+        {
+            isFalling = true;
+        }
+
+            Debug.Log($"velocity:{velocity}");
 
         // 移動
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
