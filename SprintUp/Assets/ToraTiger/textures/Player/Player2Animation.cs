@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour
+public class Player2Animation : MonoBehaviour
 {
     Animator animator;
-    PlayerMove playerMove;
+    PlayerMove2 playerMove;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        playerMove = GetComponent<PlayerMove>();
+        playerMove = GetComponent<PlayerMove2>();
     }
 
     void Update()

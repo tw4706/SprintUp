@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
     const float kMoveSpeed = 2.0f;      // 移動速度
     const float kDashSpeed = 3.5f;
     const float rotationSpeed = 720.0f;
+    const string kJumpKeyName = "joystick 1 button 0";
 
 
     Rigidbody rb;
@@ -21,7 +22,11 @@ public class PlayerMove : MonoBehaviour
     public float checkDistance = 0.15f;
     public LayerMask groundLayer;
     public Transform bottom;
-    public bool isFalling = false;
+    private bool isFalling = false;
+    public bool IsFalling()
+    {
+        return isFalling;
+    }
 
     Animator animator;
 
@@ -93,7 +98,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         // Aボタンが押されたら
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) && isGround)
+        if (Input.GetKeyDown(kJumpKeyName) && isGround)
         {
             Debug.Log("ジャンプしてるんじゃぁ");
             isGround = false;  // ジャンプしたので地面から離れる
