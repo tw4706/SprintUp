@@ -25,7 +25,7 @@ public class kamera_2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //右スティックの入力取得
         float rightStickX = UnityEngine.Input.GetAxis("RightStickHorizontal_2");

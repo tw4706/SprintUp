@@ -9,7 +9,7 @@ public class PlayerMove2 : MonoBehaviour
     const float kMoveSpeed = 2.0f;      // 移動速度
     const float kDashSpeed = 3.5f;
     const float rotationSpeed = 720.0f;
-    const string kJumpKeyName = "joystick 2 button 1";
+    const string kJumpKeyName = "joystick 2 button 0";
 
 
     Rigidbody rb;
@@ -57,7 +57,7 @@ public class PlayerMove2 : MonoBehaviour
 
         Vector3 moveDir = cameraForward * vertical + cameraRight * horizontal;
 
-        if (Input.GetKey(KeyCode.JoystickButton5))  // R2ボタンが押されていたらダッシュ
+        if (Input.GetKey("joystick 2 button 5"))  // R2ボタンが押されていたらダッシュ
         {
             velocity = moveDir * kDashSpeed;
             animationType = 2;  // アニメーションをダッシュに変更
@@ -99,8 +99,7 @@ public class PlayerMove2 : MonoBehaviour
         }
 
         // Aボタンが押されたら
-        //if (Input.GetKey(kJumpKeyName) && isGround)
-        if (isGround)
+        if (Input.GetKeyDown(kJumpKeyName) && isGround)
         {
             //Debug.Log("ジャンプしてるんじゃぁ");
             isGround = false;  // ジャンプしたので地面から離れる
