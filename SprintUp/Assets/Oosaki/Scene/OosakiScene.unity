@@ -317,9 +317,10 @@ GameObject:
   - component: {fileID: 394765142}
   - component: {fileID: 394765141}
   - component: {fileID: 394765140}
+  - component: {fileID: 394765143}
   m_Layer: 5
   m_Name: Button (Legacy)
-  m_TagString: Untagged
+  m_TagString: FirstSelectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -414,7 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -438,6 +439,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394765138}
   m_CullTransparentMesh: 1
+--- !u!114 &394765143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394765138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c78d4b36d3ee64fa9c04b4a283b4c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetUI: {fileID: 394765141}
+  blinkSpeed: 0.5
 --- !u!1 &550020264 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2024942047886661134, guid: 0ebea9911d0c91642a6e95e67d22ba63, type: 3}
@@ -458,6 +473,7 @@ MonoBehaviour:
   fadeImage: {fileID: 831412058}
   fadeDuration: 1
   obj: {fileID: 550020264}
+  firstButton: {fileID: 394765138}
 --- !u!114 &831412058 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4833652148002207529, guid: 0ebea9911d0c91642a6e95e67d22ba63, type: 3}

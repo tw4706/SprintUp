@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,9 +15,12 @@ public class FadeManager : MonoBehaviour
     private static FadeManager instance;
 
     public static FadeManager Instance=> instance;
+    // 最初に選択するボタン
+    public GameObject firstButton;
 
     void Start()
     {
+       // EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     void Update()
@@ -66,8 +70,12 @@ public class FadeManager : MonoBehaviour
     // 途中で処理を止めて再開する処理に使われる
 
     // フェードアウトのコルーチン
-    private IEnumerator FadeIn()
+    IEnumerator FadeIn()
     {
+
+        // 選択状態を一時的に解除
+        EventSystem.current.SetSelectedGameObject(null);
+
         float time = 0;
         while (time < fadeDuration)
         {
@@ -77,10 +85,18 @@ public class FadeManager : MonoBehaviour
             yield return null;
         }
         fadeImage.color = new Color(0, 0, 0, 0);
+
+
+        // フェード完了後にボタンを再選択
+        if (firstButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(firstButton);
+        }
+
     }
 
     // フェードイン
-    private IEnumerator FadeOut(string sceneName)
+    IEnumerator FadeOut(string sceneName)
     {
         float time = 0;
         while (time < fadeDuration)
@@ -99,8 +115,15 @@ public class FadeManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+
+        // 選択状態をリセット
+        EventSystem.current.SetSelectedGameObject(null);
+
+        // タグで新しいボタンを探す
+        firstButton = GameObject.FindWithTag("FirstSelectable");
+
         if (fadeImage != null)
         {
             StartCoroutine(FadeIn());
