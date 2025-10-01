@@ -30,12 +30,12 @@ public class kamera_1: MonoBehaviour
         //右スティックの入力取得
         float rightStickX = UnityEngine.Input.GetAxis("RightStickHorizontal_1");
         float rightStickY = UnityEngine.Input.GetAxis("RightStickVertical_1");
-        Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
+        //Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
         //デッドゾーン
         if (Mathf.Abs(rightStickX) < 0.35f) rightStickX = 0f;
         if (Mathf.Abs(rightStickY) < 0.35f) rightStickY = 0f;
 
-        Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
+        //Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); // ← これ追加してみて
         //スティックの入力に応じて角度を変更
         yaw += rightStickX * sensitivity * Time.deltaTime;
         pitch+= rightStickY * sensitivity * Time.deltaTime;

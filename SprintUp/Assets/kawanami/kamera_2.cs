@@ -35,7 +35,7 @@ public class kamera_2 : MonoBehaviour
         if (Mathf.Abs(rightStickX) < 0.1f) rightStickX = 0f;
         if (Mathf.Abs(rightStickY) < 0.1f) rightStickY = 0f;
 
-        Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); 
+        //Debug.Log($"Right Stick X: {rightStickX}, Y: {rightStickY}"); 
         //スティックの入力に応じて角度を変更
         yaw += rightStickX * sensitivity * Time.deltaTime;
         pitch+= rightStickY * sensitivity * Time.deltaTime;

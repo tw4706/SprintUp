@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     const float rotationSpeed = 720.0f;
     const string kJumpKeyName = "joystick 1 button 0";
 
+    public float kJumpPower = 7.0f;
 
     Rigidbody rb;
     Vector3 velocity = Vector3.zero;
@@ -102,7 +103,7 @@ public class PlayerMove : MonoBehaviour
         {
             //Debug.Log("ジャンプしてるんじゃぁ");
             isGround = false;  // ジャンプしたので地面から離れる
-            rb.AddForce(Vector3.up * 5.0f, ForceMode.VelocityChange);  // ジャンプ
+            rb.AddForce(Vector3.up * kJumpPower, ForceMode.VelocityChange);  // ジャンプ
         }
 
         float yVelocity = rb.velocity.y;  // 現在のY方向の速度を保存
