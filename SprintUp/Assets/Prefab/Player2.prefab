@@ -92,7 +92,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641011330410842824}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &4380535203537905414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21edd3b8f6235e4488e7565b02a8d56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kJumpPower: 7
   animationType: 0
   cameraPos: {fileID: 8706646977518002536}
   checkDistance: 0.15
