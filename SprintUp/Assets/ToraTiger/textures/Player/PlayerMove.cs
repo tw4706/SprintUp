@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = cameraForward * vertical + cameraRight * horizontal;
 
-        if (Input.GetKey(KeyCode.JoystickButton5))  // R2ボタンが押されていたらダッシュ
+        if (Input.GetKey("joystick 1 button 5"))  // R2ボタンが押されていたらダッシュ
         { 
             velocity = moveDir * kDashSpeed;
             animationType = 2;  // アニメーションをダッシュに変更
@@ -90,17 +90,17 @@ public class PlayerMove : MonoBehaviour
 
         if (isGround)
         {
-            Debug.Log("接地しています");
+            //Debug.Log("接地しています");
         }
         else
         {
-            Debug.Log("空中です");
+            //Debug.Log("空中です");
         }
 
         // Aボタンが押されたら
         if (Input.GetKeyDown(kJumpKeyName) && isGround)
         {
-            Debug.Log("ジャンプしてるんじゃぁ");
+            //Debug.Log("ジャンプしてるんじゃぁ");
             isGround = false;  // ジャンプしたので地面から離れる
             rb.AddForce(Vector3.up * 5.0f, ForceMode.VelocityChange);  // ジャンプ
         }
@@ -115,7 +115,7 @@ public class PlayerMove : MonoBehaviour
             isFalling = true;
         }
 
-            Debug.Log($"velocity:{velocity}");
+            //Debug.Log($"velocity:{velocity}");
 
         // 移動
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
