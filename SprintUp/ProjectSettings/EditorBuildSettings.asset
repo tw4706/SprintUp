@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Oosaki/Scene/MenuScene.unity
     guid: fcaba7e7f9f7d0a46b89b3edf9f5415d
   - enabled: 1
-    path: Assets/Oosaki/Scene/GameScene.unity
-    guid: 696deef15697b9d4fa33add8e573be92
+    path: Assets/Scenes/GameScene.unity
+    guid: 52b88d8163661af4898b1af92d065592
   - enabled: 1
     path: Assets/Oosaki/Scene/ResultScene.unity
     guid: b761c36924455474ebd7e5f5fc728074
