@@ -17,6 +17,8 @@ public class GameSceneSystem : MonoBehaviour
 
     bool is1PWin = true;
 
+    public FadeManager fadeManager;
+
     void Start()
     {
         timeUI = GameObject.Find("TimeText").GetComponent<Text>();
@@ -24,6 +26,8 @@ public class GameSceneSystem : MonoBehaviour
         p2alt = GameObject.Find("2PAltitude").GetComponent<Text>();
         player1 = GameObject.Find("Player");
         player2 = GameObject.Find("Player2");
+
+
     }
 
     void Update()
@@ -49,6 +53,8 @@ public class GameSceneSystem : MonoBehaviour
                 is1PWin = false;
                 Debug.Log("2P‚½‚©‚¢");
             }
+
+
         }
 
     }
