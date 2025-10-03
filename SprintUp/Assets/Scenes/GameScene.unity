@@ -4672,6 +4672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17a665fc170aaf49af5d29e1d31120f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionEffect: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
   time: 5
   AltitudeOffset: 5.1
   fadeManager: {fileID: 0}
