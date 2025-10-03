@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 52b88d8163661af4898b1af92d065592
-  - enabled: 1
+  - enabled: 0
     path: Assets/Oosaki/Scene/ResultScene.unity
     guid: b761c36924455474ebd7e5f5fc728074
+  - enabled: 1
+    path: Assets/Scenes/ResultScene.unity
+    guid: 3845d2e185b342b4fa4c399472f31f8b
   m_configObjects: {}
