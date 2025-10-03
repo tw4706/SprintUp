@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17a665fc170aaf49af5d29e1d31120f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 5
+  time: 60
   AltitudeOffset: 0
+  fadeManager: {fileID: 0}
 --- !u!1 &740585353
 GameObject:
   m_ObjectHideFlags: 0
