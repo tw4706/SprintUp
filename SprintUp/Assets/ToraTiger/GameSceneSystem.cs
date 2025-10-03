@@ -19,11 +19,19 @@ public class GameSceneSystem : MonoBehaviour
     GameObject player1;
     GameObject player2;
 
+    public GameObject explosionEffect;
+
     public float time = 60.0f;
 
     public float AltitudeOffset = 0;
 
     public FadeManager fadeManager;
+
+    float player1PosY = 0.0f;
+    float player2PosY = 0.0f;
+    float timeOverAfterTime = 0.0f;
+    bool isEffected = false;
+    Transform DefeatPlayerTransform;
 
     void Start()
     {
@@ -32,7 +40,8 @@ public class GameSceneSystem : MonoBehaviour
         p2alt = GameObject.Find("2PAltitude").GetComponent<Text>();
         player1 = GameObject.Find("Player");
         player2 = GameObject.Find("Player2");
-
+        timeOverAfterTime = 0.0f;
+        isEffected = false;
 
     }
 
@@ -41,29 +50,61 @@ public class GameSceneSystem : MonoBehaviour
         time -= Time.deltaTime;
         timeUI.text = $"Time:{time:F2}";
 
-        GameData.p1alt = player1.transform.position.y - AltitudeOffset;
-        GameData.p2alt = player2.transform.position.y - AltitudeOffset;
-
         p1alt.text = $"1P:{GameData.p1alt:F1}m";
         p2alt.text = $"{GameData.p2alt:F1}m:2P";
+
+        if (DefeatPlayerTransform != null)
+        {
+            Vector3 ababa = DefeatPlayerTransform.position;
+            Debug.Log(ababa);
+        }
 
         // éûä‘êÿÇÍ
         if (time < 0)
         {   // ÉvÉåÉCÉÑÅ[ÇÃçÇÇ≥Çî‰är
-            if (player1.transform.position.y > player2.transform.position.y)
+            if (player1PosY > player2PosY)
             {
                 // 1PÇÃï˚Ç™çÇÇ¢
                 GameData.is1PWin = true;
-                Debug.Log("1PÇΩÇ©Ç¢");
+                //Debug.Log("1PÇΩÇ©Ç¢");
+                if (player2 != null)
+                {
+                    DefeatPlayerTransform = player2.transform;
+                }
+                Destroy(player2);
             }
             else
             {
                 // 2PÇÃï˚Ç™çÇÇ¢
                 GameData.is1PWin = false;
-                Debug.Log("2PÇΩÇ©Ç¢");
+                //Debug.Log("2PÇΩÇ©Ç¢");
+                if (player1 != null)
+                {
+                    DefeatPlayerTransform = player1.transform;
+                }
+                Destroy(player1);
             }
-            SceneManager.LoadScene("ResultScene");
-        }
 
+            timeOverAfterTime += Time.deltaTime;
+
+            if (!isEffected)
+            {
+                Instantiate(explosionEffect, DefeatPlayerTransform);
+                isEffected = true;
+            }
+
+            if (timeOverAfterTime > 2)
+            {
+                SceneManager.LoadScene("ResultScene");
+            }
+            time = 0;
+        }
+        else
+        {
+            player1PosY = player1.transform.position.y;
+            player2PosY = player2.transform.position.y;
+            GameData.p1alt = player1.transform.position.y - AltitudeOffset;
+            GameData.p2alt = player2.transform.position.y - AltitudeOffset;
+        }
     }
 }
