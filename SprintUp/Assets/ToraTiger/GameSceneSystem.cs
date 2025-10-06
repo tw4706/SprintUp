@@ -47,16 +47,16 @@ public class GameSceneSystem : MonoBehaviour
 
     void Update()
     {
-        time -= Time.deltaTime;
-        timeUI.text = $"Time:{time:F2}";
+        time -= Time.deltaTime;     // 制限時間を減らす
+        timeUI.text = $"Time:{time:F2}";    // 制限時間を表示
 
-        p1alt.text = $"1P:{GameData.p1alt:F1}m";
+        p1alt.text = $"1P:{GameData.p1alt:F1}m";    // プレイヤーの高度を表示
         p2alt.text = $"{GameData.p2alt:F1}m:2P";
 
-        if (DefeatPlayerTransform != null)
+        if (DefeatPlayerTransform != null)  // 負けたプレイヤーが存在していたら
         {
-            Vector3 ababa = DefeatPlayerTransform.position;
-            Debug.Log(ababa);
+            Vector3 ababa = DefeatPlayerTransform.position;     // そのプレイヤーの位置を保存
+            Debug.Log(ababa);   // 保存した位置をデバッグ表示
         }
 
         // 時間切れ
@@ -67,11 +67,11 @@ public class GameSceneSystem : MonoBehaviour
                 // 1Pの方が高い
                 GameData.is1PWin = true;
                 //Debug.Log("1Pたかい");
-                if (player2 != null)
+                if (player2 != null)    // 負けた2Pの位置を保存
                 {
                     DefeatPlayerTransform = player2.transform;
                 }
-                Destroy(player2);
+                //Destroy(player2);
             }
             else
             {
@@ -82,13 +82,15 @@ public class GameSceneSystem : MonoBehaviour
                 {
                     DefeatPlayerTransform = player1.transform;
                 }
-                Destroy(player1);
+                //Destroy(player1);
             }
 
             timeOverAfterTime += Time.deltaTime;
 
             if (!isEffected)
             {
+                Instantiate(explosionEffect, DefeatPlayerTransform);
+                Instantiate(explosionEffect, DefeatPlayerTransform);
                 Instantiate(explosionEffect, DefeatPlayerTransform);
                 isEffected = true;
             }
