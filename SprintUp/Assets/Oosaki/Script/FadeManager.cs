@@ -101,8 +101,7 @@ public class FadeManager : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        fadeImage.color = new Color(0, 0, 0, 0);
-
+        fadeImage.color = new Color(255, 255, 255, 255);
 
         // ここで1フレーム待つことで、黒画面が描画される
         yield return null;
@@ -112,7 +111,6 @@ public class FadeManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
         // 選択状態をリセット
         EventSystem.current.SetSelectedGameObject(null);
 
