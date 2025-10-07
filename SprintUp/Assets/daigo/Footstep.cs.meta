@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5e0f6ca69fae4e7478d029d29595d2fb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - grassSound: {instanceID: 0}
+  - woodSound: {fileID: 8300000, guid: 870a65040ac92034e802495f8169f78c, type: 3}
+  - stoneSound: {instanceID: 0}
+  - defaultSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
