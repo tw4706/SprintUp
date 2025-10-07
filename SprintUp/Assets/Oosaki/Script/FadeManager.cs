@@ -51,11 +51,10 @@ public class FadeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
-            fadeImage.color = new Color(0, 0, 0, 1);
+            fadeImage.color = new Color(0, 0, 0, 0);
             StartCoroutine(FadeIn());
         }
 
