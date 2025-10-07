@@ -9,6 +9,7 @@ public static class GameData
     public static bool is1PWin = false;      // true:プレイヤー1の勝ち   false:プレイヤー2の勝ち
     public static float p1alt = 0.0f;   // プレイヤー1の高度
     public static float p2alt = 0.0f;   // プレイヤー2の高度
+    public static bool isCanControll = false;
 }
 
 public class GameSceneSystem : MonoBehaviour
@@ -42,7 +43,7 @@ public class GameSceneSystem : MonoBehaviour
         player2 = GameObject.Find("Player2");
         timeOverAfterTime = 0.0f;
         isEffected = false;
-
+        GameData.isCanControll = false;
     }
 
     void Update()
@@ -85,6 +86,7 @@ public class GameSceneSystem : MonoBehaviour
                 //Destroy(player1);
             }
 
+            GameData.isCanControll = false;
             timeOverAfterTime += Time.deltaTime;
 
             if (!isEffected)

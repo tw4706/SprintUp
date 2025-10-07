@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     const float rotationSpeed = 720.0f;
     const string kJumpKeyName = "joystick 1 button 0";
 
+
     public float kJumpPower = 7.0f;
 
     Rigidbody rb;
@@ -40,10 +41,17 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        // 入力方向を取得
-        //Vector3 inputDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = 0;
+        float vertical = 0;
+        bool isInputDash = false;
+        bool isInputJump = false;
+        if (GameData.isCanControll)
+        {
+            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
+            isInputDash = Input.GetKey("joystick 1 button 5");
+            isInputJump = Input.GetKeyDown(kJumpKeyName);
+        }
 
         // カメラの向きに基づいた移動方向を計算
         Vector3 cameraForward = cameraPos.forward;
@@ -57,7 +65,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = cameraForward * vertical + cameraRight * horizontal;
 
-        if (Input.GetKey("joystick 1 button 5"))  // R2ボタンが押されていたらダッシュ
+        if (isInputDash)  // R2ボタンが押されていたらダッシュ
         { 
             velocity = moveDir * kDashSpeed;
             animationType = 2;  // アニメーションをダッシュに変更
@@ -89,17 +97,8 @@ public class PlayerMove : MonoBehaviour
 
        bool isGround = Physics.Raycast(bottom.position, Vector3.down, checkDistance, groundLayer);
 
-        if (isGround)
-        {
-            //Debug.Log("接地しています");
-        }
-        else
-        {
-            //Debug.Log("空中です");
-        }
-
         // Aボタンが押されたら
-        if (Input.GetKeyDown(kJumpKeyName) && isGround)
+        if (isInputJump && isGround)
         {
             //Debug.Log("ジャンプしてるんじゃぁ");
             isGround = false;  // ジャンプしたので地面から離れる

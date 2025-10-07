@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,8 +25,8 @@ public class NewBehaviourScript : MonoBehaviour
             CountdownTime--;
         }
         CountdownText.text = "Start!";
+        GameData.isCanControll = true;
         yield return new WaitForSeconds(1f);
-
         CountdownText.gameObject.SetActive(false);// カウントダウンが終了したらテキストを非表示にする
     }
 }
