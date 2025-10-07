@@ -101,7 +101,7 @@ public class FadeManager : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        fadeImage.color = new Color(255, 255, 255, 255);
+        fadeImage.color = new Color(0, 0, 0, 0);
 
         // ‚±‚±‚Å1ƒtƒŒ[ƒ€‘Ò‚Â‚±‚Æ‚ÅA•‰æ–Ê‚ª•`‰æ‚³‚ê‚é
         yield return null;
