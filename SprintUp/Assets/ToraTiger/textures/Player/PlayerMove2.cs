@@ -40,10 +40,17 @@ public class PlayerMove2 : MonoBehaviour
 
     void Update()
     {
-        // 入力方向を取得
-        //Vector3 inputDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        float horizontal = Input.GetAxis("Horizontal2");
-        float vertical = Input.GetAxis("Vertical2");
+        float horizontal = 0;
+        float vertical = 0;
+        bool isInputDash = false;
+        bool isInputJump = false;
+        if (GameData.isCanControll)
+        {
+            horizontal = Input.GetAxis("Horizontal2");
+            vertical = Input.GetAxis("Vertical2");
+            isInputDash = Input.GetKey("joystick 2 button 5");
+            isInputJump = Input.GetKeyDown(kJumpKeyName);
+        }
         vertical = -vertical; // なんか前後入力が逆転してるので修正
 
         // カメラの向きに基づいた移動方向を計算

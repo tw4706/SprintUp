@@ -39,15 +39,20 @@ public class SuperJump : MonoBehaviour
         }
 
         // スーパージャンプする
-        if(Input.GetKeyDown(JoystickName) && isCanSuperJump)
+        bool isInputSuperJump = false;
+        isInputSuperJump = Input.GetKeyDown(JoystickName);
+        if (GameData.isCanControll)
         {
-            rb.velocity = new Vector3(0,JumpPower,0);
-            Instantiate(ExplosionEffect,transform.position,Quaternion.identity);
-            SuperJumpUI.SetActive(false);
-            superJumpCT = 15;
-            isCanSuperJump = false;
+            if (isInputSuperJump && isCanSuperJump)
+            {
+                rb.velocity = new Vector3(0, JumpPower, 0);
+                Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
+                SuperJumpUI.SetActive(false);
+                superJumpCT = 15;
+                isCanSuperJump = false;
+            }
         }
-        //Debug.Log(superJumpCT);
+        
 
         // UI点滅
         if (isCanSuperJump)
