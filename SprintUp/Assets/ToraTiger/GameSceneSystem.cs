@@ -23,6 +23,7 @@ public class GameSceneSystem : MonoBehaviour
     public GameObject explosionEffect;
 
     public float time = 60.0f;
+    float maxTime = 0;
 
     public float AltitudeOffset = 0;
 
@@ -44,12 +45,21 @@ public class GameSceneSystem : MonoBehaviour
         timeOverAfterTime = 0.0f;
         isEffected = false;
         GameData.isCanControll = false;
+        maxTime = time;
+        time += 3;
     }
 
     void Update()
     {
         time -= Time.deltaTime;     // 制限時間を減らす
-        timeUI.text = $"Time:{time:F2}";    // 制限時間を表示
+        if (time > maxTime)
+        {
+            timeUI.text = $"Time:{maxTime:F2}";    // 制限時間を表示
+        }
+        else
+        {
+            timeUI.text = $"Time:{time:F2}";    // 制限時間を表示
+        }
 
         p1alt.text = $"1P:{GameData.p1alt:F1}m";    // プレイヤーの高度を表示
         p2alt.text = $"{GameData.p2alt:F1}m:2P";
