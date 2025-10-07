@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,24 +14,16 @@ public class FadeManager : MonoBehaviour
     public float fadeDuration = 1.0f; // フェードの間隔
     public GameObject obj;
     private static FadeManager instance;
-
     public static FadeManager Instance=> instance;
     // 最初に選択するボタン
     public GameObject firstButton;
 
     void Start()
     {
-       // EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            FadeToScene("ResultScene"); // 任意のシーン名
-        }
-
     }
 
     // コルーチンとはUpdateを使わずに自然な流れで
@@ -68,7 +61,7 @@ public class FadeManager : MonoBehaviour
     // 順番に何かを取り出す処理や、
     // 途中で処理を止めて再開する処理に使われる
 
-    // フェードアウトのコルーチン
+    // フェードインのコルーチン
     IEnumerator FadeIn()
     {
 
@@ -85,30 +78,33 @@ public class FadeManager : MonoBehaviour
         }
         fadeImage.color = new Color(0, 0, 0, 0);
 
-
         // フェード完了後にボタンを再選択
         if (firstButton != null)
         {
             EventSystem.current.SetSelectedGameObject(firstButton);
         }
-
     }
 
     // フェードイン
     IEnumerator FadeOut(string sceneName)
     {
         float time = 0;
+        // ゲームシーンかどうか判定
+        bool isGameScene = sceneName == "GameScene";
         while (time < fadeDuration)
         {
             float alpha = time / fadeDuration;
-            fadeImage.color = new Color(0, 0, 0, alpha);
+            // ゲームシーンなら透明、そうでなければ透明
+            Color fadeColor = new Color(0, 0, 0, alpha);
+
+            fadeImage.color = fadeColor;
             time += Time.deltaTime;
             yield return null;
         }
-        fadeImage.color = new Color(0, 0, 0, 1);
+        fadeImage.color = new Color(0, 0, 0, 0);
 
 
-        // ここで1フレーム待つことで、最後の黒画面が描画される
+        // ここで1フレーム待つことで、黒画面が描画される
         yield return null;
 
         SceneManager.LoadScene(sceneName);
@@ -123,9 +119,22 @@ public class FadeManager : MonoBehaviour
         // タグで新しいボタンを探す
         firstButton = GameObject.FindWithTag("FirstSelectable");
 
-        if (fadeImage != null)
+        if (scene.name == "GameScene")
         {
-            StartCoroutine(FadeIn());
+            // ゲームシーンではフェード画像を非表示にする
+            if (fadeImage != null)
+            {
+                fadeImage.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // 他のシーンではフェードインを行う
+            if (fadeImage != null)
+            {
+                fadeImage.gameObject.SetActive(true);
+                StartCoroutine(FadeIn());
+            }
         }
     }
 
