@@ -14,7 +14,7 @@ public class FadeManager : MonoBehaviour
     public float fadeDuration = 1.0f; // フェードの間隔
     public GameObject obj;
     private static FadeManager instance;
-    public static FadeManager Instance=> instance;
+    public static FadeManager Instance => instance;
     // 最初に選択するボタン
     public GameObject firstButton;
 
@@ -47,8 +47,11 @@ public class FadeManager : MonoBehaviour
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
-            fadeImage.color = new Color(0, 0, 0, 0);
-            StartCoroutine(FadeIn());
+            fadeImage.color = new Color(1, 1, 1, 0);
+            if (SceneManager.GetActiveScene().name!="GameScene")
+            {
+                StartCoroutine(FadeIn());
+            }
         }
 
     }
@@ -76,7 +79,7 @@ public class FadeManager : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        fadeImage.color = new Color(0, 0, 0, 0);
+        fadeImage.color = new Color(1, 1, 1, 0);
 
         // フェード完了後にボタンを再選択
         if (firstButton != null)
@@ -101,7 +104,7 @@ public class FadeManager : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        fadeImage.color = new Color(0, 0, 0, 0);
+        fadeImage.color = new Color(1, 1, 1, 0);
 
         // ここで1フレーム待つことで、黒画面が描画される
         yield return null;
@@ -119,21 +122,20 @@ public class FadeManager : MonoBehaviour
 
         if (scene.name == "GameScene")
         {
-            // ゲームシーンではフェード画像を非表示にする
             if (fadeImage != null)
             {
-                fadeImage.gameObject.SetActive(false);
+                fadeImage.color = new Color(1, 1, 1, 0); // 念のため白透明に
+                fadeImage.gameObject.SetActive(false);   // ← ここが重要！
             }
         }
         else
         {
-            // 他のシーンではフェードインを行う
             if (fadeImage != null)
             {
                 fadeImage.gameObject.SetActive(true);
                 StartCoroutine(FadeIn());
             }
         }
-    }
 
+    }
 }

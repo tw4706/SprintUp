@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42569af30d6a57b4a8e52734cb50af2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 0}
+  fadeImage: {fileID: 8711200774448296185, guid: cd677a139c2ffc8439554668315b7d2e, type: 3}
   fadeDuration: 1
   obj: {fileID: 2024942047886661134}
-  scene: GameScene
+  firstButton: {fileID: 0}
 --- !u!1 &4235925838433263383
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   fadeImage: {fileID: 4833652148002207529}
   fadeDuration: 1
   obj: {fileID: 2024942047886661134}
-  scene: MenuScene
+  firstButton: {fileID: 0}
 --- !u!1 &6953981561337719270
 GameObject:
   m_ObjectHideFlags: 0
