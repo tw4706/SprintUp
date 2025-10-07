@@ -216,6 +216,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d290dd6abebf52946bf1fed453191eed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1820312303543987280}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d290dd6abebf52946bf1fed453191eed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7222504865735667382}
   m_SourcePrefab: {fileID: 100100000, guid: d290dd6abebf52946bf1fed453191eed, type: 3}
 --- !u!4 &8289211133421564963 stripped
 Transform:
@@ -322,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1db0d30e3ca47c4b8cbeab1d8f9d8ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kJumpPower: 7
   animationType: 0
   cameraPos: {fileID: 3539660631329412916}
   checkDistance: 0.2
@@ -329,3 +333,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   bottom: {fileID: 8006368932576531943}
+--- !u!114 &7222504865735667382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8665736259512987289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a770bc4c4f4d164b955a0e29649d1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JoystickName: joystick 1 button 1
+  OtherPlayer: {fileID: 0}
