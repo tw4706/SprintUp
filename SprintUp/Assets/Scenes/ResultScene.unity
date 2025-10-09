@@ -349,16 +349,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1258692836156332868, guid: 990a8d18b8343054798399eeea3030ae, type: 3}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: OnClick
+      - m_Target: {fileID: 4535711114295414220, guid: 0ebea9911d0c91642a6e95e67d22ba63, type: 3}
+        m_TargetAssemblyTypeName: FadeManager, Assembly-CSharp
+        m_MethodName: FadeToScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: OosakiScene
+          m_StringArgument: ResultScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &403668434

@@ -393,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 831412058}
   fadeDuration: 1
-  obj: {fileID: 0}
+  obj: {fileID: 550020264}
   firstButton: {fileID: 394765138}
 --- !u!114 &831412058 stripped
 MonoBehaviour:
