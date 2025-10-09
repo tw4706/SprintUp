@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,29 +8,15 @@ using UnityEngine.UI;
 
 public class FadeManager : MonoBehaviour
 {
-    public Image fadeImage; // フェード用の変数
-    public float fadeDuration = 1.0f; // フェードの間隔
-    public GameObject obj;
+    public Image fadeImage;
+    public float fadeDuration = 1.0f;
     private static FadeManager instance;
     public static FadeManager Instance => instance;
-    // 最初に選択するボタン
+
     public GameObject firstButton;
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
-    // コルーチンとはUpdateを使わずに自然な流れで
-    // 処理を行うための仕組み
-
-    // フェードインのコルーチン
     void Awake()
     {
-        // シーンが変わっても消えないようにする
         if (instance == null)
         {
             instance = this;
@@ -44,31 +28,25 @@ public class FadeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
-            fadeImage.color = new Color(1, 1, 1, 0);
-            if (SceneManager.GetActiveScene().name!="GameScene")
+            fadeImage.color = new Color(0, 0, 0, 0);
+            if (SceneManager.GetActiveScene().name != "GameScene")
             {
                 StartCoroutine(FadeIn());
             }
         }
-
     }
-    // フェードイン
+
     public void FadeToScene(string sceneName)
     {
         StartCoroutine(FadeOut(sceneName));
     }
-    // IEnumeratorはコルーチンを使うため特別な戻り値の型
-    // 順番に何かを取り出す処理や、
-    // 途中で処理を止めて再開する処理に使われる
 
-    // フェードインのコルーチン
     IEnumerator FadeIn()
     {
-
-        // 選択状態を一時的に解除
         EventSystem.current.SetSelectedGameObject(null);
 
         float time = 0;
@@ -79,34 +57,26 @@ public class FadeManager : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        fadeImage.color = new Color(1, 1, 1, 0);
+        fadeImage.color = new Color(0, 0, 0, 0); // ← 修正ポイント
 
-        // フェード完了後にボタンを再選択
         if (firstButton != null)
         {
             EventSystem.current.SetSelectedGameObject(firstButton);
         }
     }
 
-    // フェードイン
     IEnumerator FadeOut(string sceneName)
     {
         float time = 0;
-        // ゲームシーンかどうか判定
-        bool isGameScene = sceneName == "GameScene";
         while (time < fadeDuration)
         {
             float alpha = time / fadeDuration;
-            // ゲームシーンなら透明、そうでなければ透明
-            Color fadeColor = new Color(0, 0, 0, alpha);
-
-            fadeImage.color = fadeColor;
+            fadeImage.color = new Color(0, 0, 0, alpha);
             time += Time.deltaTime;
             yield return null;
         }
-        fadeImage.color = new Color(1, 1, 1, 0);
+        fadeImage.color = new Color(0, 0, 0, 1);
 
-        // ここで1フレーム待つことで、黒画面が描画される
         yield return null;
 
         SceneManager.LoadScene(sceneName);
@@ -114,28 +84,12 @@ public class FadeManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 選択状態をリセット
         EventSystem.current.SetSelectedGameObject(null);
-
-        // タグで新しいボタンを探す
         firstButton = GameObject.FindWithTag("FirstSelectable");
 
-        if (scene.name == "GameScene")
+        if (fadeImage != null)
         {
-            if (fadeImage != null)
-            {
-                fadeImage.color = new Color(1, 1, 1, 0); // 念のため白透明に
-                fadeImage.gameObject.SetActive(false);   // ← ここが重要！
-            }
+            StartCoroutine(FadeIn());
         }
-        else
-        {
-            if (fadeImage != null)
-            {
-                fadeImage.gameObject.SetActive(true);
-                StartCoroutine(FadeIn());
-            }
-        }
-
     }
 }
