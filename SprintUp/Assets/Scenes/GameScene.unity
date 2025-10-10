@@ -5096,7 +5096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
-  time: 5
+  time: 30
   AltitudeOffset: 5.1
   fadeManager: {fileID: 0}
 --- !u!4 &1891396989
