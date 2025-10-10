@@ -12,8 +12,15 @@ public class FadeManager : MonoBehaviour
     public float fadeDuration = 1.0f;
     private static FadeManager instance;
     public static FadeManager Instance => instance;
-
     public GameObject firstButton;
+    bool isInput_1 = false;
+    bool isInput_2 = false;
+
+    void Start()
+    {
+        isInput_1 = Input.GetKey("joystick 1");
+        isInput_2 = Input.GetKey("joystick 2");
+    }
 
     void Awake()
     {
