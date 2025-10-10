@@ -24,10 +24,11 @@ public class FadeManager : MonoBehaviour
 
     void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // FadeManagerとその子（fadeImage）を永続化
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
@@ -40,20 +41,35 @@ public class FadeManager : MonoBehaviour
         {
             fadeImage.gameObject.SetActive(true);
             fadeImage.color = new Color(0, 0, 0, 0);
-            if (SceneManager.GetActiveScene().name != "GameScene")
-            {
-                StartCoroutine(FadeIn());
-            }
+            StartCoroutine(FadeIn());
         }
+
     }
 
     public void FadeToScene(string sceneName)
     {
         StartCoroutine(FadeOut(sceneName));
     }
+    // タイトルに戻る
+    public void ReturnToTitle()
+    {
+        if (FadeManager.Instance != null && !FadeManager.Instance.gameObject.activeSelf)
+        {
+            FadeManager.Instance.gameObject.SetActive(true); // ← これが重要！
+        }
+
+        FadeManager.Instance.FadeToScene("TitleScene");
+    }
 
     IEnumerator FadeIn()
     {
+        // 確認用
+        if (fadeImage == null)
+        {
+            Debug.LogError("fadeImage is missing!");
+            yield break;
+        }
+
         EventSystem.current.SetSelectedGameObject(null);
 
         float time = 0;
@@ -65,6 +81,11 @@ public class FadeManager : MonoBehaviour
             yield return null;
         }
         fadeImage.color = new Color(0, 0, 0, 0); // ← 修正ポイント
+
+        fadeImage.raycastTarget = false; // UIブロック防止
+
+        yield return new WaitForEndOfFrame(); // UI描画完了を待つ
+
 
         if (firstButton != null)
         {
@@ -91,7 +112,9 @@ public class FadeManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        fadeImage.gameObject.SetActive(true);
+        fadeImage.raycastTarget = true;
+
         firstButton = GameObject.FindWithTag("FirstSelectable");
 
         if (fadeImage != null)

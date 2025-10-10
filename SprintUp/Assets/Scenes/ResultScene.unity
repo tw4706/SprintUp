@@ -351,8 +351,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1934699138761966291, guid: 0ebea9911d0c91642a6e95e67d22ba63, type: 3}
         m_TargetAssemblyTypeName: FadeManager, Assembly-CSharp
-        m_MethodName: FadeToScene
-        m_Mode: 5
+        m_MethodName: ReturnToTitle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1203,8 +1203,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 1931481311}
   - {fileID: 550140306}
-  - {fileID: 1336903552}
   - {fileID: 2049101581}
+  - {fileID: 1336903552}
   - {fileID: 1081112878}
   - {fileID: 236438652}
   - {fileID: 861358615}
