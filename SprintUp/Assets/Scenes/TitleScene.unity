@@ -994,9 +994,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5712372405888812222, guid: 411daea94275f6e49953421c09b47e8a, type: 3}
+      propertyPath: rotationSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6577671460734142859, guid: 411daea94275f6e49953421c09b47e8a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20
+      value: 69.8
       objectReference: {fileID: 0}
     - target: {fileID: 6577671460734142859, guid: 411daea94275f6e49953421c09b47e8a, type: 3}
       propertyPath: m_LocalPosition.y
