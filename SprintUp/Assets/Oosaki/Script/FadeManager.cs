@@ -50,6 +50,7 @@ public class FadeManager : MonoBehaviour
     {
         StartCoroutine(FadeOut(sceneName));
     }
+
     // ƒ^ƒCƒgƒ‹‚É–ß‚é
     public void ReturnToTitle()
     {
