@@ -35,6 +35,12 @@ public class GameSceneSystem : MonoBehaviour
     bool isEffected = false;
     Transform DefeatPlayerTransform;
 
+    bool isTimeWarned = false;
+    AudioSource audioSource;
+    public AudioClip explosionSE;
+    public AudioClip TimeOverSE;
+    public AudioClip TimeWarningSE;
+
     void Start()
     {
         timeUI = GameObject.Find("TimeText").GetComponent<Text>();
@@ -47,6 +53,7 @@ public class GameSceneSystem : MonoBehaviour
         GameData.isCanControll = false;
         maxTime = time;
         time += 3;
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -68,6 +75,13 @@ public class GameSceneSystem : MonoBehaviour
         {
             Vector3 ababa = DefeatPlayerTransform.position;     // そのプレイヤーの位置を保存
             Debug.Log(ababa);   // 保存した位置をデバッグ表示
+        }
+
+        if ((time < 10) && !isTimeWarned)
+        {
+            timeUI.color = Color.red;
+            audioSource.PlayOneShot(TimeWarningSE);
+            isTimeWarned = true;
         }
 
         // 時間切れ
@@ -104,6 +118,8 @@ public class GameSceneSystem : MonoBehaviour
                 Instantiate(explosionEffect, DefeatPlayerTransform);
                 Instantiate(explosionEffect, DefeatPlayerTransform);
                 Instantiate(explosionEffect, DefeatPlayerTransform);
+                audioSource.PlayOneShot(explosionSE);
+                audioSource.PlayOneShot(TimeOverSE);
                 isEffected = true;
             }
 
