@@ -16,9 +16,15 @@ public class SuperJump : MonoBehaviour
 
     float UIFrickTime = 0;
 
+    bool isPlayedChargedSE = false;
+    AudioSource audioSource;
+    public AudioClip SuperJumpSE;
+    public AudioClip SuperJumpChargedSE;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = this.GetComponent<AudioSource>();
         SuperJumpUI.SetActive(false);
     }
 
@@ -46,10 +52,12 @@ public class SuperJump : MonoBehaviour
             if (isInputSuperJump && isCanSuperJump)
             {
                 rb.velocity = new Vector3(0, JumpPower, 0);
+                audioSource.PlayOneShot(SuperJumpSE);
                 Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
                 SuperJumpUI.SetActive(false);
-                superJumpCT = 15;
+                superJumpCT = 10;
                 isCanSuperJump = false;
+                isPlayedChargedSE = false;
             }
         }
         
@@ -66,6 +74,11 @@ public class SuperJump : MonoBehaviour
                     SuperJumpUI.SetActive(false);
                     UIFrickTime = 0;
                 }
+            }
+            if (!isPlayedChargedSE)
+            {
+                audioSource.PlayOneShot(SuperJumpChargedSE);
+                isPlayedChargedSE = true;
             }
         }
     }
