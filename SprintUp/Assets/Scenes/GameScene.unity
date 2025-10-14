@@ -2153,7 +2153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
-  time: 60
+  time: 3
   AltitudeOffset: 5.3
   fadeManager: {fileID: 0}
   explosionSE: {fileID: 8300000, guid: 5755b3941f2fa8142b2d8e47875b087b, type: 3}
