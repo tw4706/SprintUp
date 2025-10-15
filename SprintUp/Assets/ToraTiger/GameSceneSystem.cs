@@ -27,7 +27,7 @@ public class GameSceneSystem : MonoBehaviour
 
     public float AltitudeOffset = 0;
 
-    public FadeManager fadeManager;
+    //public FadeManager fadeManager;
 
     float player1PosY = 0.0f;
     float player2PosY = 0.0f;
