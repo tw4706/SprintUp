@@ -33,10 +33,16 @@ public class PlayerMove : MonoBehaviour
     Animator animator;
 
 
+    // 移動音関係
+    float footstepsCT = 0f;
+    AudioSource audioSource;
+    public AudioClip Footsteps;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -65,6 +71,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = cameraForward * vertical + cameraRight * horizontal;
 
+        footstepsCT += Time.deltaTime;
         if (isInputDash)  // R2ボタンが押されていたらダッシュ
         { 
             velocity = moveDir * kDashSpeed;
@@ -74,6 +81,24 @@ public class PlayerMove : MonoBehaviour
         {
             velocity = moveDir * kMoveSpeed; 
             animationType = 1;  // アニメーションをジョグに変更
+        }
+
+        // 足音
+        if ((velocity.magnitude > 0) && !isFalling)
+        {
+            if (isInputDash)
+            {
+                if (footstepsCT > 0.25f)
+                {
+                    footstepsCT = 0f;
+                    audioSource.PlayOneShot(Footsteps);
+                }
+            }
+            else if (footstepsCT > 0.43f)
+            {
+                footstepsCT = 0f;
+                audioSource.PlayOneShot(Footsteps);
+            }
         }
 
         // 入力があれば移動方向に向く
