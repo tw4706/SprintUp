@@ -347,9 +347,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1934699138761966291, guid: 0ebea9911d0c91642a6e95e67d22ba63, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FadeManager, Assembly-CSharp
-        m_MethodName: ReturnToTitle
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
