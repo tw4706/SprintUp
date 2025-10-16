@@ -71,7 +71,6 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = cameraForward * vertical + cameraRight * horizontal;
 
-        footstepsCT += Time.deltaTime;
         if (isInputDash)  // R2ボタンが押されていたらダッシュ
         { 
             velocity = moveDir * kDashSpeed;
@@ -84,11 +83,12 @@ public class PlayerMove : MonoBehaviour
         }
 
         // 足音
+        footstepsCT += Time.deltaTime;
         if ((velocity.magnitude > 0) && !isFalling)
         {
             if (isInputDash)
             {
-                if (footstepsCT > 0.25f)
+                if (footstepsCT > 0.27f)
                 {
                     footstepsCT = 0f;
                     audioSource.PlayOneShot(Footsteps);

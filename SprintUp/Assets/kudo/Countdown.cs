@@ -8,11 +8,15 @@ public class NewBehaviourScript : MonoBehaviour
 {
     public Text CountdownText;
     public int CountdownTime = 3; // カウントダウンの開始時間
+    public AudioClip CountDownSE;
+    public AudioClip StartSE;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-       StartCoroutine(CountdownRoutine());
+        audioSource = GetComponent<AudioSource>();
+        StartCoroutine(CountdownRoutine());
     }
 
     // Update is called once per frame
@@ -20,11 +24,16 @@ public class NewBehaviourScript : MonoBehaviour
     {
         while (CountdownTime > 0)
         {
+            if (CountdownTime > 0)
+            {
+                audioSource.PlayOneShot(CountDownSE);
+            }
             CountdownText.text = CountdownTime.ToString();
             yield return new WaitForSeconds(1f);// 1秒待つ
             CountdownTime--;
         }
         CountdownText.text = "Start!";
+        audioSource.PlayOneShot(StartSE);
         GameData.isCanControll = true;
         yield return new WaitForSeconds(1f);
         CountdownText.gameObject.SetActive(false);// カウントダウンが終了したらテキストを非表示にする

@@ -82,11 +82,12 @@ public class PlayerMove2 : MonoBehaviour
         }
 
         // 足音
+        footstepsCT += Time.deltaTime;
         if ((velocity.magnitude > 0) && !isFalling)
         {
             if (isInputDash)
             {
-                if (footstepsCT > 0.25f)
+                if (footstepsCT > 0.35f)
                 {
                     footstepsCT = 0f;
                     audioSource.PlayOneShot(Footsteps);
