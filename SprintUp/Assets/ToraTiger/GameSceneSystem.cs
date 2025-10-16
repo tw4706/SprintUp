@@ -63,7 +63,7 @@ public class GameSceneSystem : MonoBehaviour
         {
             timeUI.text = $"Time:{maxTime:F2}";    // §ŒÀŠÔ‚ğ•\¦
         }
-        else
+        else if(time > 0)
         {
             timeUI.text = $"Time:{time:F2}";    // §ŒÀŠÔ‚ğ•\¦
         }
