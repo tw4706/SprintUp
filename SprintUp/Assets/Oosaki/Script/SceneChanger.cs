@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class SceneChanger : MonoBehaviour
 {
-    public void ChangeScene(string sceneName)
+    public FadeManager fadeManager;
+
+    public void OnClickChangeScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        fadeManager.ChangeScene(sceneName);
     }
 }

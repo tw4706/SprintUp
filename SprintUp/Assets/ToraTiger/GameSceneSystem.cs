@@ -20,6 +20,7 @@ public class GameSceneSystem : MonoBehaviour
     GameObject player1;
     GameObject player2;
 
+    public FadeManager fadeManager;
     public GameObject explosionEffect;
 
     public float time = 60.0f;
