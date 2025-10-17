@@ -13,14 +13,14 @@ public class Footstep : MonoBehaviour
     [Header("‘«‰¹‚ÌÄ¶ŠÔŠui•bj")]
     public float stepInterval = 0.5f;
 
-    private float stepTimer;
+    //private float stepTimer;
     private AudioSource audioSource;
     private CharacterController controller;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        stepTimer = 0f;
+        //stepTimer = 0f;
     }
 
     void Update()

@@ -823,6 +823,10 @@ PrefabInstance:
       propertyPath: Footsteps
       value: 
       objectReference: {fileID: 8300000, guid: 01bb5dd7baa7ba94c92769aeb3979549, type: 3}
+    - target: {fileID: 4980171788392654615, guid: 5f46e7468675df94fb55cbaf24474385, type: 3}
+      propertyPath: m_Mass
+      value: 0.0000001
+      objectReference: {fileID: 0}
     - target: {fileID: 5933230761677785935, guid: 5f46e7468675df94fb55cbaf24474385, type: 3}
       propertyPath: m_Name
       value: Player2
@@ -1048,7 +1052,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: :2P
+  m_Text: 2P:0.0m
 --- !u!222 &1227704312
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1143,7 +1147,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1P:'
+  m_Text: 1P:0.0m
 --- !u!222 &1241291438
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1608,6 +1612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FadeManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5508059548998133310, guid: 30ecb20a98d645a4f93e3eb528cd4232, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7109767373625191694, guid: 30ecb20a98d645a4f93e3eb528cd4232, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1705.6
@@ -1893,6 +1901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17a665fc170aaf49af5d29e1d31120f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BGMPlayer: {fileID: 1535030497}
   fadeManager: {fileID: 147136328}
   explosionEffect: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
   time: 60
@@ -2058,6 +2067,10 @@ PrefabInstance:
     - target: {fileID: 2800241049837401811, guid: 156d19dcff75aa14d94b11fe9c290da5, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037951948896397206, guid: 156d19dcff75aa14d94b11fe9c290da5, type: 3}
+      propertyPath: m_Mass
+      value: 0.0000001
       objectReference: {fileID: 0}
     - target: {fileID: 7222504865735667382, guid: 156d19dcff75aa14d94b11fe9c290da5, type: 3}
       propertyPath: JumpPower
