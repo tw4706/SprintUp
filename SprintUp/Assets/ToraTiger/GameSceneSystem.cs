@@ -126,7 +126,7 @@ public class GameSceneSystem : MonoBehaviour
 
             if (timeOverAfterTime > 2)
             {
-                SceneManager.LoadScene("ResultScene");
+                fadeManager.ChangeScene("ResultScene");
             }
             time = 0;
         }

@@ -198,6 +198,17 @@ RectTransform:
   m_AnchoredPosition: {x: -824.8, y: 318.3}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &147136328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7270615885791898724, guid: 30ecb20a98d645a4f93e3eb528cd4232, type: 3}
+  m_PrefabInstance: {fileID: 1668880457}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac7257da25fedf346a80306eb9e14334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &229032717 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5933230761677785935, guid: 5f46e7468675df94fb55cbaf24474385, type: 3}
@@ -1882,9 +1893,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17a665fc170aaf49af5d29e1d31120f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeManager: {fileID: 0}
+  fadeManager: {fileID: 147136328}
   explosionEffect: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
-  time: 3
+  time: 60
   AltitudeOffset: 5.3
   explosionSE: {fileID: 8300000, guid: 5755b3941f2fa8142b2d8e47875b087b, type: 3}
   TimeOverSE: {fileID: 8300000, guid: af633340f2d26154194461967def452f, type: 3}
