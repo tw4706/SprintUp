@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public static class GameData
 {
     public static bool is1PWin = false;      // true:プレイヤー1の勝ち   false:プレイヤー2の勝ち
+    public static bool isDraw = false;
     public static float p1alt = 0.0f;   // プレイヤー1の高度
     public static float p2alt = 0.0f;   // プレイヤー2の高度
     public static bool isCanControll = false;
@@ -19,6 +20,8 @@ public class GameSceneSystem : MonoBehaviour
     Text p2alt;
     GameObject player1;
     GameObject player2;
+    public GameObject BGMPlayer;
+    AudioSource audioSourceBGM;
 
     public FadeManager fadeManager;
     public GameObject explosionEffect;
@@ -55,6 +58,7 @@ public class GameSceneSystem : MonoBehaviour
         maxTime = time;
         time += 3;
         audioSource = this.GetComponent<AudioSource>();
+        audioSourceBGM = BGMPlayer.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -70,7 +74,7 @@ public class GameSceneSystem : MonoBehaviour
         }
 
         p1alt.text = $"1P:{GameData.p1alt:F1}m";    // プレイヤーの高度を表示
-        p2alt.text = $"{GameData.p2alt:F1}m:2P";
+        p2alt.text = $"2P:{GameData.p2alt:F1}m";
 
         if (DefeatPlayerTransform != null)  // 負けたプレイヤーが存在していたら
         {
@@ -84,10 +88,27 @@ public class GameSceneSystem : MonoBehaviour
             audioSource.PlayOneShot(TimeWarningSE);
             isTimeWarned = true;
         }
+        if (time < 10 && time > 5)
+        {
+            audioSourceBGM.pitch += Time.deltaTime * 0.05f;
+        }
 
         // 時間切れ
         if (time < 0)
-        {   // プレイヤーの高さを比較
+        {
+            // 距離の差が0.1以下なら引き分け
+            float tempPosY = kirisute(player1PosY) - kirisute(player2PosY);
+            if (Mathf.Abs(tempPosY) < 0.1f)
+            {
+                GameData.isDraw = true;
+                Debug.Log("引き分け条件を満たしました");
+            }
+            else
+            {
+                GameData.isDraw = false;
+            }
+
+            // プレイヤーの高さを比較
             if (player1PosY > player2PosY)
             {
                 // 1Pの方が高い
@@ -113,6 +134,7 @@ public class GameSceneSystem : MonoBehaviour
 
             GameData.isCanControll = false;
             timeOverAfterTime += Time.deltaTime;
+            audioSourceBGM.Stop();
 
             if (!isEffected)
             {
@@ -137,5 +159,20 @@ public class GameSceneSystem : MonoBehaviour
             GameData.p1alt = player1.transform.position.y - AltitudeOffset;
             GameData.p2alt = player2.transform.position.y - AltitudeOffset;
         }
+    }
+
+    /// <summary>
+    /// 小数点第一位以下を切り捨てる関数
+    /// </summary>
+    /// <param name="a">切り捨てる数字</param>
+    /// <returns>切り捨てられた数字</returns>
+    float kirisute(float a)
+    {
+        float ans;
+        ans = a * 10;
+        int temp = (int)ans;
+        ans = temp;
+        ans = ans / 10;
+        return ans;
     }
 }

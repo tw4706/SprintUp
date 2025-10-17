@@ -8,7 +8,13 @@ public class Player1Result : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        if (GameData.is1PWin)
+        if (GameData.isDraw)
+        {
+            animator.SetBool("isWin", true);
+            transform.position = new Vector3(1, -0.3f, -7);
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else if (GameData.is1PWin)
         {
             animator.SetBool("isWin",true);
             transform.position = new Vector3(0, -0.3f, -7);
