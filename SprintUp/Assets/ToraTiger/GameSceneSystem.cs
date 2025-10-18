@@ -22,6 +22,7 @@ public class GameSceneSystem : MonoBehaviour
     GameObject player2;
     public GameObject BGMPlayer;
     AudioSource audioSourceBGM;
+    bool isPlayedBGM = false;
 
     public FadeManager fadeManager;
     public GameObject explosionEffect;
@@ -66,14 +67,23 @@ public class GameSceneSystem : MonoBehaviour
         time -= Time.deltaTime;     // 制限時間を減らす
         if (time > maxTime)
         {
-            timeUI.text = $"Time:{maxTime:F2}";    // 制限時間を表示
+            timeUI.text = $"Time:{maxTime:F2}";    // 制限時間を表示(カウントダウン中なので設定した時間で固定)
         }
         else if(time > 0)
         {
-            timeUI.text = $"Time:{time:F2}";    // 制限時間を表示
+            timeUI.text = $"Time:{time:F2}";    // 制限時間を表示(カウントダウン後なので普通に表示)
+
+        }
+        
+        // カウントダウン中の良い感じのタイミングでBGMを再生開始
+        if ((time < maxTime + 1) && !isPlayedBGM)
+        {
+            audioSourceBGM.Play();
+            isPlayedBGM = true;
         }
 
-        p1alt.text = $"1P:{GameData.p1alt:F1}m";    // プレイヤーの高度を表示
+        // プレイヤーの高度を表示
+        p1alt.text = $"1P:{GameData.p1alt:F1}m";    
         p2alt.text = $"2P:{GameData.p2alt:F1}m";
 
         if (DefeatPlayerTransform != null)  // 負けたプレイヤーが存在していたら
@@ -96,6 +106,7 @@ public class GameSceneSystem : MonoBehaviour
         // 時間切れ
         if (time < 0)
         {
+            timeUI.text = $"Time:0.00";    // 制限時間を0.00秒にする
             // 距離の差が0.1以下なら引き分け
             float tempPosY = kirisute(player1PosY) - kirisute(player2PosY);
             if (Mathf.Abs(tempPosY) < 0.1f)

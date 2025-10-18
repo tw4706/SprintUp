@@ -30,6 +30,14 @@ public class SuperJump : MonoBehaviour
 
     void Update()
     {
+        // スペースキーで即使用可能(デバッグ用)
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isCanSuperJump = true;
+        }
+#endif
+
         // 高さを比較
         float posYDif = OtherPlayer.transform.position.y - this.transform.position.y;
         if ((posYDif > 10) && (superJumpCT == 0))
