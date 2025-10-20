@@ -7,8 +7,8 @@ public class HeightMaterManage : MonoBehaviour
 {
     const float kMinHeight = -200.0f;
     const float kMaxHeight = 200.0f;
-    const float kPosX1P = -70;
-    const float kPosX2P = 70;
+    const float kPosX1P = -130;
+    const float kPosX2P = 130;
 
     public GameObject Player1P;
     public GameObject Player2P;
