@@ -14,9 +14,15 @@ public class SceneChanger : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void OnClickChangeScene(string sceneName)
+    public void ChangeScene(string sceneName)
     {
         audioSource.PlayOneShot(PressButtonSound);
         fadeManager.ChangeScene(sceneName);
+    }
+
+    public void GameEnd()
+    {
+        audioSource.PlayOneShot(PressButtonSound);
+        fadeManager.GameEnd();
     }
 }

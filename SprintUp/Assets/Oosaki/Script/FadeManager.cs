@@ -10,8 +10,9 @@ public class FadeManager : MonoBehaviour
     public float fadeSpeed = 1f;
     bool isFadingIn = false;
     bool isFadingOut = false;
-    string nextSceneName;
+    string nextSceneName = null;
     bool isSceneChanged = false; // シーンが変更されたかどうかのフラグ
+    bool isGameEnding = false;  // ゲームを終了しようとしたときにtrueになる
 
     void Start()
     {
@@ -48,8 +49,20 @@ public class FadeManager : MonoBehaviour
                 // フェードアウト完了後にシーン遷移
                 if (isSceneChanged)
                 {
-                    SceneManager.LoadScene(nextSceneName);
-                    isSceneChanged = false;
+                    // ゲームを終わろうとしているなら
+                    if (isGameEnding)
+                    {
+#if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false; // エディタ上での実行を停止
+#else
+                        Application.Quit(); // ビルド版でゲームを終了
+#endif
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene(nextSceneName);
+                        isSceneChanged = false;
+                    }
                 }
             }
         }
@@ -71,6 +84,13 @@ public class FadeManager : MonoBehaviour
     {
         nextSceneName = sceneName;
         isSceneChanged = true;
+        StartFadeOut(); // フェードアウト開始 → 完了後にシーン遷移
+    }
+
+    public void GameEnd()
+    {
+        isSceneChanged = true;
+        isGameEnding = true;
         StartFadeOut(); // フェードアウト開始 → 完了後にシーン遷移
     }
 
