@@ -24,11 +24,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
         while (CountdownTime > 0)
         {
-            if (CountdownTime > 0)
+            if ((CountdownTime <= 3) && (CountdownTime > 0))
             {
+                CountdownText.text = CountdownTime.ToString();
                 audioSource.PlayOneShot(CountDownSE);
             }
-            CountdownText.text = CountdownTime.ToString();
             yield return new WaitForSeconds(1f);// 1•b‘Ò‚Â
             CountdownTime--;
         }
