@@ -32,8 +32,6 @@ public class GameSceneSystem : MonoBehaviour
 
     public float AltitudeOffset = 0;
 
-    //public FadeManager fadeManager;
-
     float player1PosY = 0.0f;
     float player2PosY = 0.0f;
     float timeOverAfterTime = 0.0f;
@@ -45,6 +43,11 @@ public class GameSceneSystem : MonoBehaviour
     public AudioClip explosionSE;
     public AudioClip TimeOverSE;
     public AudioClip TimeWarningSE;
+    public AudioClip EnterSE;
+
+    public Image TutorialImage;
+    bool isFirstStoped = false;
+    bool isFirstPressed = false;
 
     void Start()
     {
@@ -57,7 +60,7 @@ public class GameSceneSystem : MonoBehaviour
         isEffected = false;
         GameData.isCanControll = false;
         maxTime = time;
-        time += 3;
+        time += 4;
         audioSource = this.GetComponent<AudioSource>();
         audioSourceBGM = BGMPlayer.GetComponent<AudioSource>();
     }
@@ -65,6 +68,37 @@ public class GameSceneSystem : MonoBehaviour
     void Update()
     {
         time -= Time.deltaTime;     // 制限時間を減らす
+
+        // 最初の操作方法表示のための停止とか諸々
+        if (time < maxTime + 3.2f)
+        {
+            if (!isFirstStoped)
+            {
+                Time.timeScale = 0;
+                isFirstStoped = true;
+            }
+
+            if (TutorialImage.rectTransform.anchoredPosition.x > 0)
+            {
+                TutorialImage.rectTransform.anchoredPosition += Vector2.left * 10000 * Time.unscaledDeltaTime;
+            }
+            else if (!isFirstPressed)
+            {
+                TutorialImage.rectTransform.anchoredPosition = Vector2.zero;
+            }
+            else if (TutorialImage.rectTransform.anchoredPosition.x > -1800)
+            {
+                TutorialImage.rectTransform.anchoredPosition += Vector2.left * 10000 * Time.unscaledDeltaTime;
+            }
+
+            if (Input.GetKeyDown("joystick button 0") && !isFirstPressed)
+            {
+                audioSource.PlayOneShot(EnterSE);
+                isFirstPressed = true;
+                Time.timeScale = 1;
+            }
+        }
+
         if (time > maxTime)
         {
             timeUI.text = $"Time:{maxTime:F2}";    // 制限時間を表示(カウントダウン中なので設定した時間で固定)
@@ -72,7 +106,6 @@ public class GameSceneSystem : MonoBehaviour
         else if(time > 0)
         {
             timeUI.text = $"Time:{time:F2}";    // 制限時間を表示(カウントダウン後なので普通に表示)
-
         }
         
         // カウントダウン中の良い感じのタイミングでBGMを再生開始
